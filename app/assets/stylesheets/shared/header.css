@@ -1,0 +1,11 @@
+/* リセットCSS */
+
+h1 {
+  color: lightgray;
+  font-size: 68px;
+  width: 50%;
+  margin-left: 40px;
+}
+.header{height:130px;
+  width: 100%;
+  background-color: rgb(77, 77, 245);}

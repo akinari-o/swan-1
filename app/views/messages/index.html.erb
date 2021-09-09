@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+  <head>
+  <link rel="stylesheet" href="index.css">
+  <%# <%= image_tag "swan.jpg", class:"main" %> 
+    <%# <script src="index.js"></script> %>
+    <meta charset="UTF-8">
+    <title>swan</title>
+  </head>
+  <body>
+  
+  <%= render "shared/header"%>
+
+  <% if user_signed_in? %>
+  <%= current_user.nickname %>
+  <h4>
+  禁煙時間
+  </h4>
+  <h5 id="time">000日00:00:00</h5>
+
+  <h6>
+  <input id="start" type="button" value="禁煙開始">
+  <input id="stop" type="button" value="stop">
+  <input id="reset" type="button" value="reset">
+  </h6>
+     <%# 普段吸う本数(1日)
+  <div>
+   <%= text_field :cigerette, class:"cigerette", id:"cigerette" %>
+   <%# </div> %> 
+      <h4>
+      禁煙出来た本数
+      </h4>
+      <h5 id="tobacco">000本</h5>
+      
+      <h4>
+      節約出来た金額
+      </h4>
+      <h5 id="price">¥00000</h5>
+      
+      <h4>
+      延びた寿命
+      </h4>
+      <h5 id="lifespan">000日00:00:00</h5>
+
+      
+  <%# jsを用いた時間表示 %>
+  <script>
+   const timeElement = document.getElementById('time');
+   const start = document.getElementById('start');
+   const stop = document.getElementById('stop');
+   const reset = document.getElementById('reset');
+   
+   let elapsed = 0;
+
+   let intervalId = null;
+
+   function updateTime() {
+     const ms = elapsed % 1000;
+     const s  = Math.floor(elapsed / 1000) % 60;
+     const m  = Math.floor(elapsed / (1000*60)) % 60;
+     const h  = Math.floor(elapsed / (1000*60*60));
+     const d = Math.floor(elapsed / (1000*60*60*2));
+
+     const msStr = ms.toString().padStart(3, '0');
+     const sStr = s.toString().padStart(2, '0');
+     const mStr = m.toString().padStart(2, '0');
+     const hStr = h.toString().padStart(2, '0');
+     const dStr = d.toString().padStart(3, '0');
+
+     timeElement.innerHTML = `${dStr}日${hStr}:${mStr}:${sStr}`;
+
+    //  const cigoretteInput = document.getElementById("cigorette");
+    //  cigoretteInput.addEventListener("input", () => {
+    //  const cigoretteValue = cigoretteInput.value;
+    
+     
+    
+     //  const cigorette = document.getElementById("cigorette");
+     //  const tobbacoElement = document.getElementById('tobacco');
+     //  console.log(cigorette)
+     //  function updateTobbaco() {
+     
+     //  const npm = Math.floor(86400 / cigarette);
+     //  const tobbaco = Math.floor((elapsed / 1000) / npm);
+   
+     //  const tobbacoStr = tobbaco.toString().padStart(3, '0');
+
+     //  tobaccoElement.innerHTML = `${tobbacoStr}`;
+     //  }
+    }
+     
+   
+
+   start.addEventListener('click' , function(e){
+     if (intervalId !== null) { return; }
+     let pre = new Date();
+     intervalId = setInterval(function() {
+       const now = new Date();
+       elapsed += now - pre;
+       pre = now;
+       updateTime();
+     }, 10);
+   });
+
+   stop.addEventListener('click' , function(e) {
+     clearInterval(intervalId);
+     intervalId = null;
+   });
+
+   reset.addEventListener('click' , function(e) {
+     elapsed = 0;
+     updateTime();
+   });
+   // <%# jsを用いた時間表示 %>
+   
+  
+  
+
+  </script>
+  
+  <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: 'btn'%>
+  <% else %>
+  <h2>
+   <%= link_to 'ログイン', new_user_session_path %>
+  </h2>
+  <h2>
+   <%= link_to '新規登録', new_user_registration_path %>
+  </h2>
+  <% end %>
+  </div>
+  </body>
+</html>

@@ -1,0 +1,22 @@
+body{
+  background-color: lightgray;
+  width:100%
+}
+
+
+h2{
+  border: 3px solid lightgray;
+  font-size: 48px;
+  color: white;
+  background-color: rgb(77, 77, 245);
+  
+  margin: 100px 425px 30px 400px
+}
+
+h4{
+  font-size: 32px;
+}
+h5{
+
+  font-size: 48px;
+}
