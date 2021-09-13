@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="ja">
+
   <head>
   <link rel="stylesheet" href="index.css">
   <%# <%= image_tag "swan.jpg", class:"main" %> 
@@ -8,8 +8,11 @@
     <title>swan</title>
   </head>
   <body>
-  
-  <%= render "shared/header"%>
+  <header>
+  <h1>
+  swan
+  </h1>
+  </header>
 
   <% if user_signed_in? %>
   <%= current_user.nickname %>
